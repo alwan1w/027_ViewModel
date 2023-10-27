@@ -86,10 +86,12 @@ fun TampilanForm(cobaViewModel: CobaViewModel = viewModel()){
     var textTlp by remember{ mutableStateOf("") }
     var textAlamat by remember{ mutableStateOf("") }
 
+
     val context = LocalContext.current
     val dataclass : DataForm
     val uiState by cobaViewModel.uiState.collectAsState()
     dataclass = uiState
+    var textEmail by remember{ mutableStateOf("") }
 
     OutlinedTextField(
         value = textNama,
@@ -128,9 +130,19 @@ fun TampilanForm(cobaViewModel: CobaViewModel = viewModel()){
         onSelectionChanged = {
             cobaViewModel.setJenisK(it)
         })
+    OutlinedTextField(
+        value = textEmail,
+        singleLine = true,
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Email")},
+        onValueChange ={
+            textEmail = it
+        }
+    )
     Button(modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.BacaData(textNama,textTlp,textAlamat,dataclass.sex)
+            cobaViewModel.BacaData(textNama,textTlp,textAlamat,textEmail,dataclass.sex)
         }
     ) {
         Text(
@@ -143,6 +155,7 @@ fun TampilanForm(cobaViewModel: CobaViewModel = viewModel()){
         namanya = cobaViewModel.namaUsr,
         telponya =cobaViewModel.noTlp ,
         alamatnya = cobaViewModel.alamat,
+        emailnya= cobaViewModel.email,
         jenisnya = cobaViewModel.jenisKl
     )
 }
@@ -155,9 +168,11 @@ fun SelectJK(
     onSelectionChanged: (String) -> Unit = {}
 
 ) {
+
     var selectedValue by remember { mutableStateOf(" ") }
 
     Column(modifier = Modifier.padding(16.dp)){
+
         options.forEach{ item ->
             Row(
                 modifier = Modifier.selectable(
@@ -169,6 +184,7 @@ fun SelectJK(
                 ),
                 verticalAlignment = Alignment.CenterVertically
             ){
+
                 RadioButton(selected = selectedValue == item, onClick = {
                     selectedValue = item
                     onSelectionChanged(item)
@@ -181,7 +197,7 @@ fun SelectJK(
 }
 
 @Composable
-fun TextHasil(namanya:String, telponya:String,alamatnya:String, jenisnya:String){
+fun TextHasil(namanya:String, telponya:String,alamatnya:String,emailnya:String, jenisnya:String){
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -197,6 +213,10 @@ fun TextHasil(namanya:String, telponya:String,alamatnya:String, jenisnya:String)
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
         Text(text = "Alamat : " + alamatnya,
+            modifier = Modifier
+                .padding(horizontal = 10.dp, vertical = 4.dp)
+        )
+        Text(text = "Email : " + emailnya,
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 4.dp)
         )
