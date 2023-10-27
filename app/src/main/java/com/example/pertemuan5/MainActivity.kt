@@ -150,7 +150,6 @@ fun TampilanForm(cobaViewModel: CobaViewModel = viewModel()){
             fontSize = 16.sp
         )
     }
-    Spacer(modifier = Modifier.height(50.dp))
     TextHasil(
         namanya = cobaViewModel.namaUsr,
         telponya =cobaViewModel.noTlp ,
