@@ -150,7 +150,7 @@ fun TampilanForm(cobaViewModel: CobaViewModel = viewModel()){
             fontSize = 16.sp
         )
     }
-    Spacer(modifier = Modifier.height(100.dp))
+    Spacer(modifier = Modifier.height(50.dp))
     TextHasil(
         namanya = cobaViewModel.namaUsr,
         telponya =cobaViewModel.noTlp ,
@@ -170,9 +170,9 @@ fun SelectJK(
 ) {
 
     var selectedValue by remember { mutableStateOf(" ") }
+    Text(text = "Jenis Kelamin:", fontSize = 20.sp)
 
-    Column(modifier = Modifier.padding(16.dp)){
-
+    Row(modifier = Modifier.padding(16.dp)){
         options.forEach{ item ->
             Row(
                 modifier = Modifier.selectable(
