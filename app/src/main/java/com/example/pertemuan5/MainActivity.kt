@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pertemuan5.Data.DataSource.jenis
+import com.example.pertemuan5.Data.DataSource.status
 import com.example.pertemuan5.Data.DataForm
 import com.example.pertemuan5.ui.theme.Pertemuan5Theme
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -185,6 +186,40 @@ fun SelectJK(
 
     var selectedValue by remember { mutableStateOf(" ") }
     Text(text = "Jenis Kelamin:", fontSize = 20.sp)
+
+    Row(modifier = Modifier.padding(16.dp)){
+        options.forEach{ item ->
+            Row(
+                modifier = Modifier.selectable(
+                    selected = selectedValue ==item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChanged(item)
+                    }
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+
+                RadioButton(selected = selectedValue == item, onClick = {
+                    selectedValue = item
+                    onSelectionChanged(item)
+                }
+                )
+                Text(item)
+            }
+        }
+    }
+}
+
+@Composable
+fun setStatus(
+    options: List<String>,
+    onSelectionChanged: (String) -> Unit = {}
+
+) {
+
+    var selectedValue by remember { mutableStateOf(" ") }
+    Text(text = "Status:", fontSize = 20.sp)
 
     Row(modifier = Modifier.padding(16.dp)){
         options.forEach{ item ->
